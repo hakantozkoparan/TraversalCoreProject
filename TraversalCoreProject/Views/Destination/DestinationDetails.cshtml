@@ -112,7 +112,7 @@
                             <a href="#blog-share"><span class="fa fa-facebook" aria-hidden="true"></span></a>
                             <a href="#blog-share"><span class="fa fa-twitter" aria-hidden="true"></span></a>
                             <a href="#blog-share"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
-                            <a href="#blog-share"><span class="fa fa-pinterest-p" aria-hidden=" true"></span></a>
+                            <a href="#blog-share"><span class="fa fa-pinterest-p" aria-hidden="true"></span></a>
                         </div>
                     </div>
 
@@ -174,10 +174,10 @@
                     <!--//author-card-->
 
 
-                    @await Component.InvokeAsync("_CommentList")
-                    @await Component.InvokeAsync("_AddComment")
-                    
+                    @await Component.InvokeAsync("_CommentList", new {id=ViewBag.i})
+                    @await Html.PartialAsync("~/Views/Comment/AddComment.cshtml")
                 </div>
+            </div>
             </div>
             <!--//blog-post-->
     </section>
