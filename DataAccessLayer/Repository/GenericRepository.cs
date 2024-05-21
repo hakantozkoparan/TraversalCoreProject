@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DataAccessLayer.Repository
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
-        public void Delete(T t)
+		public void Delete(T t)
         {
             using var c = new Context();
             c.Remove(t);
@@ -42,11 +43,11 @@ namespace DataAccessLayer.Repository
             c.Add(t);
             c.SaveChanges();
         }
-
-        public void Update(T t)
+		public void Update(T t)
         {
             using var c = new Context();
             c.Update(t);
+            c.SaveChanges();
         }
     }
 }
