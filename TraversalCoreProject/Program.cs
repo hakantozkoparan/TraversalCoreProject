@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
+using BusinessLayer.Container;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
@@ -16,8 +17,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>();
 builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>().AddErrorDescriber<CustomIdentityValidator>(); // AddErrorDescriber<CustomIdentityValidator>() parola hata şifrelerini türkçeleştirmek için
 
-builder.Services.AddScoped<ICommentService, CommentManager>();
-builder.Services.AddScoped<ICommentDal, EfCommentDal>();
+
+builder.Services.ContainerDependencies(); // BusinessLayer container sınıfındaki metotları çalıştırır
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc(config =>
 {
@@ -38,6 +40,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}"); // 404 sayfası
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
